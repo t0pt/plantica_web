@@ -1,0 +1,9 @@
+{{define "todo_row"}}
+<div id="todo-{{.ID}}">
+  <span>{{.Title}}</span>
+  <button hx-put="/todos/{{.ID}}" hx-target="#todo-{{.ID}}">
+    {{if .Done}}✔️{{else}}Mark Done{{end}}
+  </button>
+  <button hx-delete="/todos/{{.ID}}" hx-target="#todo-{{.ID}}" hx-swap="delete">🗑️</button>
+</div>
+{{end}}

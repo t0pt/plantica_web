@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+</head>
+<body>
+  <h1>Fiber + HTMX TODOs</h1>
+
+  <form hx-post="/todos" hx-target="#todo-list" hx-swap="beforeend">
+    <input name="title" placeholder="New todo" required>
+    <button>Add</button>
+  </form>
+
+  <div id="todo-list">
+    {{range .Todos}}
+      {{template "todo_row" .}}
+    {{end}}
+  </div>
+</body>
+</html>
