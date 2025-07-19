@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/t0pt/plantica_web/cmd/events"
 )
 
 func IndexHandler(c *fiber.Ctx) error {
@@ -37,4 +38,10 @@ func DeleteTodoHandler(c *fiber.Ctx) error {
 		}
 	}
 	return c.SendStatus(404)
+}
+
+func CalendarHandler(c *fiber.Ctx) error {
+	return c.Render("calendar", fiber.Map{
+		"CalendarColumns": events.CalendarColumns,
+	})
 }
