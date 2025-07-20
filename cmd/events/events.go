@@ -1,14 +1,12 @@
 package events
 
 import (
-	"fmt"
 	"time"
 )
 
 type CalendarColumn struct {
 	Date   time.Time
-	Name   string
-	Events []Event
+	Events map[int][]Event
 	Tasks  []Task
 }
 
@@ -31,10 +29,14 @@ func CreateCalendarColumns() {
 	for i := range []int{0, 1, 2, 3, 4} {
 		newColumn := CalendarColumn{
 			Date: time.Now().AddDate(0, 0, i),
-			Name: fmt.Sprint("Day ", i),
-			Events: []Event{
-				{Task: &Task{Title: "skibidi"}, From: time.Now(), To: time.Now().Add(time.Hour)},
-				{Task: &Task{Title: "bip bop"}, From: time.Now(), To: time.Now().Add(time.Hour)},
+			Events: map[int][]Event{
+				18: {{Task: &Task{Title: "skibidi", Color: "green"}, From: time.Now(), To: time.Now().Add(time.Hour)},
+					{Task: &Task{Title: "skibidi", Color: "orange"}, From: time.Now(), To: time.Now().Add(time.Hour)}},
+				20: {{Task: &Task{Title: "bip bop"}, From: time.Now(), To: time.Now().Add(time.Hour)}},
+			},
+			Tasks: []Task{
+				{Title: "foo", Color: "red"},
+				{Title: "baar", Color: "blue"},
 			},
 		}
 		CalendarColumns = append(CalendarColumns, newColumn)

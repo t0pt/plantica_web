@@ -42,13 +42,38 @@
             min-width: 0;
             box-shadow: 0 2px 16px rgba(0,0,0,0.12);
             transition: box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
         }
-        .calendar-column:hover {
-            box-shadow: 0 4px 32px rgba(126,231,135,0.12);
-            border-color: #3a7bd5;
+        .timeline-hour-block {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #23272f;
+            margin-bottom: 8px;
+            padding: 6px;
+            position: relative;
+        }
+        .timeline-hour-block .timeline-label {
+            min-width: 60px;
+            font-weight: 500;
+        }
+        .hour-events {
+            display: flex;
+            flex-direction: column;
         }
         .tasks, .events {
             margin-bottom: 18px;
+        }
+        .event-block {
+            display: flex; 
+            align-items: center; 
+            padding: 4px; 
+            margin: 4px; 
+            border: 1px solid black;
+            border-radius: 8px;
         }
         h2 {
             margin-top: 0;
@@ -74,23 +99,28 @@
     <div class="calendar">
         {{range .CalendarColumns}}
         <div class="calendar-column">
-            <h2>{{.Name}}</h2>
-            <p>{{.Date.Format "2006-01-02"}}</p>    
+            <h2>{{.Date.Format "Monday"}} {{.Date.Format "02-January"}}</h2>
             <div class="events">
                 <h3>Events</h3>
-                <ul>
-                    {{range .Events}}
-                    <li>
-                        {{.Task.Title}}: {{.From.Format "15:04"}} - {{.To.Format "15:04"}}
-                    </li>
-                    {{end}}
-                </ul>
+                {{/* Timeline hours: dynamic from .FromTime to .ToTime */}}
+                {{ $col := . }}
+                {{range $h := $.TimelineHours}}
+                <div class="timeline-hour-block">
+                    <span class="timeline-label">{{$h}}:00</span>
+                    <div class="hour-events">
+                        {{range index $col.Events $h}}
+                        {{template "event" .}}
+                        {{end}}
+                        <input type="text" name="event-input-{{$h}}" placeholder="Add event..." style="margin-left:10px;">
+                    </div>
+                </div>
+                {{end}}
             </div>
             <div class="tasks">
                 <h3>Tasks</h3>
                 <ul>
                     {{range .Tasks}}
-                    <li>{{.Title}}</li>
+                        {{template "task" .}}
                     {{end}}
                 </ul>
             </div>

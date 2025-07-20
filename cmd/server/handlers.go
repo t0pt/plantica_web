@@ -41,7 +41,17 @@ func DeleteTodoHandler(c *fiber.Ctx) error {
 }
 
 func CalendarHandler(c *fiber.Ctx) error {
+	var hours []int
+	h := 5
+	for {
+		hours = append(hours, h)
+		if h == 4 {
+			break
+		}
+		h = (h + 1) % 24
+	}
 	return c.Render("calendar", fiber.Map{
 		"CalendarColumns": events.CalendarColumns,
+		"TimelineHours":   hours,
 	})
 }
