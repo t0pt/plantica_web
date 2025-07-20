@@ -55,3 +55,18 @@ func CalendarHandler(c *fiber.Ctx) error {
 		"TimelineHours":   hours,
 	})
 }
+
+func TaskCompleteHandler(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return c.SendStatus(400)
+	}
+	for _, task := range events.Tasks {
+		if task.ID == int64(id) {
+			task.Done = !task.Done
+			// Render the updated task using the partial template
+			return c.Render("task", task, "task")
+		}
+	}
+	return c.SendStatus(404)
+}

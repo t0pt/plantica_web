@@ -1,3 +1,11 @@
 {{define "task"}}
-<li style="color: {{.Color}}">{{.Title}}</li>
+<li class="task"
+    style="color: {{.Color}}; cursor: pointer; display: flex; align-items: center; justify-content: space-between;{{if .Done}}opacity: 0.6;{{end}}"
+    hx-post="/tasks/complete/{{.ID}}"
+    hx-swap="outerHTML"
+    hx-trigger="click"
+>
+    <span style="{{if .Done}}text-decoration: line-through; opacity: 0.6;{{end}}">{{.Title}}</span>
+    <button type="button" style="margin-left:10px; cursor:pointer; flex-shrink:0; text-decoration: none; opacity: 1; background: none; border: none; color: inherit;" onclick="window.open('/tasks/description/{{.ID}}', '_blank', 'width=400,height=300'); event.stopPropagation();">&#9432;</button>
+</li>
 {{end}}

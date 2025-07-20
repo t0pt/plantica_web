@@ -64,7 +64,7 @@
             display: flex;
             flex-direction: column;
         }
-        .tasks, .events {
+        .events {
             margin-bottom: 18px;
         }
         .event-block {
@@ -74,6 +74,13 @@
             margin: 4px; 
             border: 1px solid black;
             border-radius: 8px;
+        }
+        .task {
+            border-radius: 8px;
+            background: #23272f;
+            padding: 4px; 
+            margin-top: 4px;
+            margin-bottom: 4px;
         }
         h2 {
             margin-top: 0;
@@ -89,7 +96,7 @@
             font-weight: 500;
         }
         ul {
-            padding-left: 18px;
+            padding-left: 0px;
         }
         li {
             margin-bottom: 6px;
@@ -111,7 +118,7 @@
                         {{range index $col.Events $h}}
                         {{template "event" .}}
                         {{end}}
-                        <input type="text" name="event-input-{{$h}}" placeholder="Add event..." style="margin-left:10px;">
+                        <input type="text" name="event-input-{{$h}}" placeholder="Add event..." style="margin: 4px">
                     </div>
                 </div>
                 {{end}}

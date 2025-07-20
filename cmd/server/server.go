@@ -28,4 +28,5 @@ func (s *MainServer) AddHandlers() {
 	s.Put("/todos/:id", ToggleTodoHandler)
 	s.Delete("/todos/:id", DeleteTodoHandler)
 	s.Get("/calendar", CalendarHandler)
+	s.Post("/tasks/complete/:id", TaskCompleteHandler)
 }
